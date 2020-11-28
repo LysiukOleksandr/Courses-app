@@ -18,3 +18,7 @@ console.log(os.freemem())
 // Общнее кол-во памяти
 
 console.log(os.totalmem())
+
+// Корневая директория
+
+console.log(os.homedir())

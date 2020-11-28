@@ -22,3 +22,7 @@ console.log(os.totalmem())
 // Корневая директория
 
 console.log(os.homedir())
+
+// Кол-во систем которые работают
+
+console.log(os.uptime())

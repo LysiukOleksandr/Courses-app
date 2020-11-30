@@ -12,9 +12,12 @@
     "nodejs",
     "js"
   ],
-  "author": "Minin Vladilen <v@mail.ru>",
+  "author": "Lysiuk Oleksandr <olysiuk01@mail.ru>",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.18.11"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }

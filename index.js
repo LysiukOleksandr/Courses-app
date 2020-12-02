@@ -5,6 +5,7 @@ const homeRoutes = require('./routes/home')
 const addRoutes = require('./routes/add')
 const coursesRoutes = require('./routes/courses')
 const cartRoutes = require('./routes/cart')
+
 const app = express()
 
 const hbs = exphbs.create({
@@ -21,7 +22,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/', homeRoutes)
 app.use('/add', addRoutes)
 app.use('/courses', coursesRoutes)
-app.use('/cart',cartRoutes)
+app.use('/cart', cartRoutes)
 
 const PORT = process.env.PORT || 3000
 

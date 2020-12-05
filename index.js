@@ -7,6 +7,7 @@ const homeRoutes = require('./routes/home')
 const addRoutes = require('./routes/add')
 const coursesRoutes = require('./routes/courses')
 const cartRoutes = require('./routes/cart')
+const ordersRoutes = require('./routes/orders')
 const User = require('./models/user')
 const {
   allowInsecurePrototypeAccess,
@@ -24,16 +25,14 @@ app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
 
-
-app.use(async(req,res,next)=>{
-  try{
+app.use(async (req, res, next) => {
+  try {
     const user = await User.findById('5fcb8e69394d7714b8314909')
     req.user = user
     next()
-  }catch(e){
+  } catch (e) {
     console.log(e)
   }
-  
 })
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -42,7 +41,7 @@ app.use('/', homeRoutes)
 app.use('/add', addRoutes)
 app.use('/courses', coursesRoutes)
 app.use('/cart', cartRoutes)
-
+app.use('/orders', ordersRoutes)
 const PORT = process.env.PORT || 3000
 
 async function start() {
@@ -55,11 +54,11 @@ async function start() {
       useFindAndModify: false,
     })
     const candidate = await User.findOne()
-    if(!candidate){
+    if (!candidate) {
       const user = new User({
         email: 'sasha@gmail.com',
-        name:"Sasha",
-        cart:{items:[]}
+        name: 'Sasha',
+        cart: { items: [] },
       })
       await user.save()
     }

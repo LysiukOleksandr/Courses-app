@@ -5,6 +5,7 @@ const router = Router()
 function mapCartItems(cart) {
   return cart.items.map((c) => ({
     ...c.courseId._doc,
+    id: c.courseId.id,
     count: c.count,
   }))
 }
@@ -27,11 +28,10 @@ router.delete('/remove/:id', async (req, res) => {
 
   const courses = mapCartItems(user.cart)
   const cart = {
-  courses, price: computePrice(courses)
+    courses,
+    price: computePrice(courses),
   }
   res.status(200).json(cart)
-
-
 })
 
 router.get('/', async (req, res) => {

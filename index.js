@@ -7,6 +7,7 @@ const homeRoutes = require('./routes/home')
 const addRoutes = require('./routes/add')
 const coursesRoutes = require('./routes/courses')
 const cartRoutes = require('./routes/cart')
+const User = require('./models/user')
 const {
   allowInsecurePrototypeAccess,
 } = require('@handlebars/allow-prototype-access')
@@ -22,6 +23,18 @@ const hbs = exphbs.create({
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
+
+
+app.use(async(req,res,next)=>{
+  try{
+    const user = await User.findById('5fcb8e69394d7714b8314909')
+    req.user = user
+    next()
+  }catch(e){
+    console.log(e)
+  }
+  
+})
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
@@ -40,8 +53,16 @@ async function start() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
-    }) 
-
+    })
+    const candidate = await User.findOne()
+    if(!candidate){
+      const user = new User({
+        email: 'sasha@gmail.com',
+        name:"Sasha",
+        cart:{items:[]}
+      })
+      await user.save()
+    }
     app.listen(PORT, () => {
       console.log(`Server is running by port ${PORT}`)
     })

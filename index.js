@@ -22,7 +22,6 @@ const hbs = exphbs.create({
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
-mongoose.set('useFindAndModify', false)
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
@@ -40,7 +39,8 @@ async function start() {
     await mongoose.connect(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    })
+      useFindAndModify: false,
+    }) 
 
     app.listen(PORT, () => {
       console.log(`Server is running by port ${PORT}`)
